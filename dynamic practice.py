@@ -1,3 +1,27 @@
+def minSubsetDifference_recursive(N, s_list):
+    min_diff = N
+    differences = []
+
+    if N == 0 :
+        return 0
+    elif N < 0 :
+        return 999999999
+    
+    for i in range(len(s_list)) :
+        if N - s_list[i] > 0 :
+            lst_sofar = s_list[:]
+            lst_sofar.pop(i)
+            differences.append(minSubsetDifference_recursive(N - s_list[i], lst_sofar[:]))
+        else :
+            differences.append(999999999)
+    min_diff = min(differences)
+    return min_diff
+
+
+
+
+
+
 def minCoursesWithEnergyBudget_Memoize(e, n):
     level_jumps = [1, 4, 5, 11]
     energy_consumed = [1, 2, 3, 7]
