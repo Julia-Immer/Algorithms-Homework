@@ -39,7 +39,7 @@ def drawPath(img, path, pThick=2):
         x0, y0 = x,y
         
 
-img = cv2.imread('maze.png') # read an image from a file using opencv (cv2) library
+#img = cv2.imread('maze.png') # read an image from a file using opencv (cv2) library
 #drawPath(img, [ (15, 15), (150, 15), (150, 85), (75, 85), (75, 195)])
 #plt.imshow(img) # show the image on the screen 
 #plt.title('Illustration of drawPath')
@@ -62,22 +62,6 @@ class Vertex: # This is the outline for a vertex data structure
         self.pi = None # the parent vertex.
     
         
-# Dijkstra's algorithm requires a priority queue so that the 
-# minimum weight vertex can be found efficiently.
-# However, we provide you with a list data structure as a stand in for priority queue
-
-class SimpleQueue: 
-    # CONSTRUCTOR
-    def __init__(self): 
-        self.q = []
-        
-    # Insert a vertex into the queue
-    def insert(self, v):
-        v.idx_in_priority_queue = len(self.q)
-        self.q.append(v)
-        
-
-    
 
 # However, if you want Dijkstra efficiently, 
 # you may want to implement a priority queue.
@@ -188,9 +172,11 @@ def computeShortestPath(img, source, dest):
             for j in range(u.y-1, u.y+2) :
                 if i >= 0 and j >= 0 and i < img.shape[1] and j < img.shape[0] :
                     v = vertex_table[j, i]
-                    relax_success = relax(img, u, v)
-                    if relax_success :
-                        q.update_vertex_weight(v)
+
+                    if v.visited == False :
+                        relax_success = relax(img, u, v)
+                        if relax_success :
+                            q.update_vertex_weight(v)
 
         u.visited = True
 
@@ -201,42 +187,6 @@ def computeShortestPath(img, source, dest):
     path = getPath(vertex_table, source, dest)
 
     return path
-
-
-img = cv2.imread('../maze.png') # read an image from a file using opencv (cv2) library
-# you can annotate images 
-cv2.circle(img,(5,220), 3, (255,0,0), -1) # add a circle centered at (5, 220) radius 3, color red (RGB: 255,0,0)
-cv2.circle(img, (5,5), 3, (0,0,255), -1) # add a circle centered at (5,5) radius 3, color red (RGB: 0,0,255)
-#plt.imshow(img) # show the image on the screen 
-#plt.title('Amazing')
-#plt.show()
-
-p = computeShortestPath(img, (5,220), (5,5))
-
-
-drawPath(img, p, 2)
-#plt.imshow(img) # show the image on the screen 
-#plt.title('Amazing')
-#plt.show()
-cv2.imwrite('../maze-solution.png', img)
-
-
-img = cv2.imread('../maze2.JPG') # read an image from a file using opencv (cv2) library
-cv2.circle(img,(250,470), 10, (255,0,0), -1) # add a circle centered at (600, 70) radius 10, color red (RGB: 255,0,0)
-cv2.circle(img, (20,100), 10, (255,0,0), -1) # add a circle centered at (790,200) radius 10, color red (RGB: 255,0,0)
-plt.imshow(img) # show the image on the screen 
-plt.title('Amazing 2')
-plt.show()
-
-
-img = cv2.imread('maze2.JPG') # read an image from a file using opencv (cv2) library
-p = computeShortestPath(img, (250,470), (20,100))
-
-drawPath(img,p)
-plt.imshow(img) # show the image on the screen 
-plt.title('Amazing2')
-plt.show()
-
 
 
 
