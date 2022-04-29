@@ -127,3 +127,22 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+*.1
+py39/pyvenv.cfg
+py39/bin/ttx
+py39/bin/python3.9
+py39/bin/python3
+py39/bin/python
+py39/bin/pyftsubset
+py39/bin/pyftmerge
+py39/bin/pip3.9
+py39/bin/pip3
+py39/bin/pip
+py39/bin/fonttools
+py39/bin/f2py3.9
+py39/bin/f2py3
+py39/bin/f2py
+py39/bin/Activate.ps1
+py39/bin/activate.fish
+py39/bin/activate.csh
+py39/bin/activate
